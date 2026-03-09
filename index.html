@@ -406,6 +406,119 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
 ::-webkit-scrollbar-track{background:transparent;}
 ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
 .hidden{display:none!important;}
+
+/* ── VIEW TABS ── */
+#view-tabs{display:flex;gap:2px;align-items:center;margin-left:8px;}
+.vtab{
+  font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;
+  padding:6px 14px;border-radius:6px;cursor:pointer;letter-spacing:.03em;
+  border:1px solid var(--border2);background:transparent;color:var(--text3);
+  transition:all .18s;white-space:nowrap;
+}
+.vtab:hover{color:var(--text);border-color:var(--text3);}
+.vtab.active{background:rgba(255,255,255,.08);border-color:var(--border2);color:var(--text);}
+.vtab.active.v1{border-bottom:2px solid var(--aba);color:var(--aba);}
+.vtab.active.v2{border-bottom:2px solid #52e09c;color:#52e09c;}
+
+/* ── EHR VIEW ── */
+#ehr-view{
+  display:none;flex:1;overflow:hidden;position:relative;
+  background:var(--bg);
+}
+#ehr-view.active{display:flex;}
+#main.ehr-mode #sidebar{display:none;}
+#main.ehr-mode #panel{display:none;}
+#main.ehr-mode #graph-area{display:none;}
+
+/* EHR graph canvas */
+#ehr-canvas{flex:1;position:relative;overflow:hidden;}
+#ehr-canvas svg{width:100%;height:100%;cursor:grab;}
+#ehr-canvas svg:active{cursor:grabbing;}
+
+/* EHR empty state */
+#ehr-empty{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;pointer-events:none;
+}
+.ehr-empty-icon{font-size:48px;margin-bottom:16px;opacity:.3;}
+.ehr-empty-title{font-size:18px;font-weight:700;color:var(--text2);margin-bottom:6px;}
+.ehr-empty-sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);text-align:center;max-width:340px;line-height:1.7;}
+
+/* EHR legend row */
+#ehr-legend{
+  position:absolute;bottom:20px;left:50%;transform:translateX(-50%);
+  display:flex;gap:16px;align-items:center;
+  background:rgba(13,18,24,.92);backdrop-filter:blur(12px);
+  border:1px solid var(--border2);border-radius:20px;
+  padding:7px 18px;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3);
+  pointer-events:none;white-space:nowrap;
+}
+.ehr-lg{display:flex;align-items:center;gap:5px;}
+.ehr-ld{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+
+/* EHR right panel */
+#ehr-panel{
+  position:absolute;top:0;right:0;bottom:0;width:320px;
+  background:var(--bg2);border-left:1px solid var(--border2);
+  display:flex;flex-direction:column;
+  transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);
+  z-index:50;
+}
+#ehr-panel.open{transform:translateX(0);}
+#ehr-panel-hdr{
+  padding:16px 18px;border-bottom:1px solid var(--border);
+  display:flex;align-items:flex-start;gap:12px;
+}
+#ehr-panel-close{
+  margin-left:auto;width:26px;height:26px;border-radius:5px;
+  background:var(--bg3);border:1px solid var(--border);
+  color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:13px;flex-shrink:0;transition:all .15s;
+}
+#ehr-panel-close:hover{color:var(--text);}
+.ehr-pname{font-size:16px;font-weight:800;color:var(--text);margin-bottom:3px;}
+.ehr-psub{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3);}
+#ehr-panel-body{flex:1;overflow-y:auto;padding:14px 16px;scrollbar-width:thin;scrollbar-color:var(--border) transparent;}
+.ehr-section-lbl{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:8px;margin-top:14px;}
+.ehr-section-lbl:first-child{margin-top:0;}
+.ehr-partner-row{
+  display:flex;align-items:center;gap:8px;
+  padding:8px 10px;border-radius:6px;border:1px solid var(--border);
+  background:var(--bg3);margin-bottom:5px;
+}
+.ehr-partner-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.ehr-partner-name{font-size:11px;font-weight:700;color:var(--text);flex:1;}
+.ehr-partner-conn{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3);}
+
+/* ── EHR right panel — mirrors #panel exactly */
+#ehr-panel{
+  position:absolute;top:0;right:0;bottom:0;
+  width:var(--panel-w);
+  background:var(--bg2);border-left:1px solid var(--border2);
+  display:flex;flex-direction:column;
+  transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);
+  z-index:50;overflow:hidden;
+}
+#ehr-panel.open{transform:translateX(0);}
+#ehr-panel-hdr{padding:16px 18px 12px;border-bottom:1px solid var(--border);flex-shrink:0;}
+#ehr-panel-hdr-top{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;}
+#ehr-panel-close{
+  margin-left:auto;width:28px;height:28px;border-radius:6px;flex-shrink:0;
+  background:var(--bg3);border:1px solid var(--border);
+  color:var(--text2);cursor:pointer;font-size:14px;
+  display:flex;align-items:center;justify-content:center;transition:all .15s;
+}
+#ehr-panel-close:hover{color:var(--text);border-color:var(--border2);}
+#ehr-panel-stats{display:flex;gap:0;border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+#ehr-panel-controls{
+  display:flex;flex-wrap:wrap;gap:5px;
+  padding:10px 14px;border-bottom:1px solid var(--border);flex-shrink:0;
+}
+#ehr-panel-count{
+  font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3);
+  padding:8px 14px 2px;flex-shrink:0;
+}
+#ehr-panel-list{flex:1;overflow-y:auto;padding:6px 14px 14px;scrollbar-width:thin;scrollbar-color:var(--border) transparent;}
 </style>
 </head>
 <body>
@@ -428,6 +541,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
     <div class="hdr-stat"><span class="hdr-stat-n" id="stat-contacts" style="color:var(--gold)">794</span><span class="hdr-stat-l">Total Contacts</span></div>
     <div class="hdr-pipe"></div>
     <div class="hdr-stat"><span class="hdr-stat-n" id="stat-tierA" style="color:var(--qa)">—</span><span class="hdr-stat-l">Tier A</span></div>
+    <div id="view-tabs">
+      <button class="vtab v1 active" onclick="switchView('partner')">Partner Networks</button>
+      <button class="vtab v2" onclick="switchView('ehr')">EHR Connections</button>
+    </div>
     <div class="hdr-right">
       <button class="btn btn-wkw" id="wkw-toggle" onclick="toggleWKW()">
         <span class="dot"></span>Who Knows Who
@@ -508,6 +625,53 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
       </div>
       <div id="panel-count"></div>
       <div id="panel-list"></div>
+    </div>
+
+    <!-- EHR VIEW -->
+    <div id="ehr-view" style="display:none;flex:1;overflow:hidden;position:relative;background:var(--bg);">
+      <div id="ehr-canvas" style="flex:1;position:relative;overflow:hidden;width:100%;height:100%;">
+        <svg id="ehr-svg" style="width:100%;height:100%;cursor:grab;"></svg>
+        <div id="ehr-empty" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;">
+          <div style="font-size:48px;margin-bottom:16px;opacity:.25;">⬡</div>
+          <div style="font-size:18px;font-weight:700;color:var(--text2);margin-bottom:8px;">EHR Connections</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);text-align:center;max-width:360px;line-height:1.8;">This map shows which EHR companies each partner has connections to.<br>Start adding EHR data per partner to populate this view.</div>
+        </div>
+        <div id="ehr-legend" style="display:none;position:absolute;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:16px;align-items:center;background:rgba(13,18,24,.92);backdrop-filter:blur(12px);border:1px solid var(--border2);border-radius:20px;padding:7px 18px;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3);white-space:nowrap;pointer-events:none;">
+          <div style="display:flex;align-items:center;gap:5px;"><div style="width:8px;height:8px;border-radius:50%;background:#5b9cf6;flex-shrink:0;"></div>Partner · click to see contacts</div>
+          <div style="display:flex;align-items:center;gap:5px;"><div style="width:10px;height:2px;background:#ff8c5a;flex-shrink:0;opacity:.7;"></div>Shared EHR contact</div>
+        </div>
+      </div>
+      <div id="ehr-panel">
+        <div id="ehr-panel-hdr">
+          <div id="ehr-panel-hdr-top">
+            <div class="panel-avatar" id="ehr-avatar"></div>
+            <div>
+              <div class="panel-name" id="ehr-panel-name"></div>
+              <div class="panel-role" id="ehr-panel-role"></div>
+              <div class="panel-industry" id="ehr-panel-industry"></div>
+            </div>
+            <button id="ehr-panel-close" onclick="closeEhrPanel()">✕</button>
+          </div>
+          <div id="ehr-panel-stats">
+            <div class="pstat">
+              <div class="pstat-n" id="ehr-ps-contacts" style="color:var(--text2)">—</div>
+              <div class="pstat-l">EHR Contacts</div>
+            </div>
+            <div class="pstat">
+              <div class="pstat-n" id="ehr-ps-ehrs" style="color:var(--aba)">—</div>
+              <div class="pstat-l">EHR Companies</div>
+            </div>
+          </div>
+        </div>
+        <div id="ehr-panel-controls">
+          <button class="pchip on" data-ef="all" onclick="setEhrFilter(this,'all')">All</button>
+          <button class="pchip" data-ef="centralreach" onclick="setEhrFilter(this,'centralreach')">CentralReach</button>
+          <button class="pchip" data-ef="officepuzzle" onclick="setEhrFilter(this,'officepuzzle')">Office Puzzle</button>
+          <button class="pchip" data-ef="oracle" onclick="setEhrFilter(this,'oracle')">Oracle</button>
+        </div>
+        <div id="ehr-panel-count"></div>
+        <div id="ehr-panel-list"></div>
+      </div>
     </div>
   </div>
 </div>
@@ -1347,6 +1511,467 @@ function connColor(n){
   if(n>=2)return'#a8e6cf';
   return'#445566';
 }
+
+// ═══════════════════════════════════════
+// VIEW SWITCHING
+// ═══════════════════════════════════════
+let currentView = 'partner';
+
+// EHR DATA - populated as user adds partner EHR info
+let EHR_DATA = {
+  ehrs: [
+    { id: 'centralreach', name: 'CentralReach', category: 'ABA EMR', color: '#5b9cf6', partner_count: 2 },
+    { id: 'oracle',       name: 'Oracle Health', category: 'Enterprise EHR', color: '#f5a623', partner_count: 1 },
+    { id: 'officepuzzle', name: 'Office Puzzle',  category: 'ABA EMR', color: '#3ecfb2', partner_count: 1 }
+  ],
+  partners: [
+    {
+      id: 'christina_torres',
+      name: 'Christina Torres',
+      color: '#5b9cf6',
+      industry: 'ABA Therapy',
+      ehrs: [
+        {
+          ehr_id: 'centralreach',
+          connections: 1,
+          contacts: [
+            { name: 'Rick Kubina', title: 'Director of Research', linkedin: 'http://www.linkedin.com/in/rickkubina' }
+          ]
+        },
+        {
+          ehr_id: 'oracle',
+          connections: 1,
+          contacts: [
+            { name: 'John Montalbano', title: 'Oracle Database Administrator', linkedin: '' }
+          ]
+        }
+      ]
+    },
+    {
+      id: 'matthew_harrington',
+      name: 'Matthew Harrington',
+      color: '#a87ce8',
+      industry: 'ABA Therapy',
+      ehrs: [
+        {
+          ehr_id: 'centralreach',
+          connections: 4,
+          contacts: [
+            { name: 'Rick Kubina',            title: 'Director of Research',               linkedin: 'http://www.linkedin.com/in/rickkubina' },
+            { name: 'Zach Sullens',           title: 'VP of Product, Clinical Outcomes and AI', linkedin: 'http://www.linkedin.com/in/zach-sullens' },
+            { name: 'Chelsea Turner Hoffmann',title: 'Director, Campaigns & Programs',     linkedin: 'http://www.linkedin.com/in/chelseaturnerhoffmann' },
+            { name: 'Kelly King',             title: 'Manager, Clinical AI Governance',    linkedin: 'http://www.linkedin.com/in/kellykingbcba' }
+          ]
+        },
+        {
+          ehr_id: 'officepuzzle',
+          connections: 3,
+          contacts: [
+            { name: 'Jonathan Latour', title: 'Product Specialist',      linkedin: 'http://www.linkedin.com/in/jonathan-latour-42446a1ab' },
+            { name: 'Charlene Kurth', title: 'Chief Operating Officer',  linkedin: 'http://www.linkedin.com/in/charlenekurth' },
+            { name: 'Sydney Med',     title: 'Product Specialist',       linkedin: 'http://www.linkedin.com/in/sydney-stuhrenberg-m-ed-1a3ba7273' }
+          ]
+        }
+      ]
+    }
+  ]
+};
+
+function switchView(view) {
+  currentView = view;
+  const main = document.getElementById('main');
+  const ehrView = document.getElementById('ehr-view');
+  const graphArea = document.getElementById('graph-area');
+  const sidebar = document.getElementById('sidebar');
+  const panel = document.getElementById('panel');
+
+  document.querySelectorAll('.vtab').forEach(t => t.classList.remove('active'));
+  document.querySelector(`.vtab.v${view === 'partner' ? '1' : '2'}`).classList.add('active');
+
+  if (view === 'partner') {
+    ehrView.style.display = 'none';
+    graphArea.style.display = '';
+    sidebar.style.display = '';
+    panel.classList.remove('open');
+  } else {
+    ehrView.style.display = 'flex';
+    graphArea.style.display = 'none';
+    sidebar.style.display = 'none';
+    panel.classList.remove('open');
+    initEhrView();
+  }
+}
+
+// ── EHR GRAPH ──
+let ehrSimulation = null;
+
+function initEhrView() {
+  const svgEl = document.getElementById('ehr-svg');
+  const W = svgEl.clientWidth || window.innerWidth;
+  const H = svgEl.clientHeight || window.innerHeight - 56;
+  const svg = d3.select('#ehr-svg').attr('viewBox', `0 0 ${W} ${H}`);
+  svg.selectAll('*').remove();
+
+  const empty = document.getElementById('ehr-empty');
+  const legend = document.getElementById('ehr-legend');
+
+  if (!EHR_DATA.partners.length) {
+    empty.style.display = 'flex';
+    legend.style.display = 'none';
+    return;
+  }
+  empty.style.display = 'none';
+  legend.style.display = '';
+
+  // Nodes: one per partner, sized by total EHR connections
+  const nodes = EHR_DATA.partners.map((p, i) => {
+    const totalContacts = (p.ehrs||[]).reduce((s, e) => s + (e.contacts||[]).length, 0);
+    const angle = (2 * Math.PI / Math.max(EHR_DATA.partners.length, 1)) * i - Math.PI / 2;
+    const spread = EHR_DATA.partners.length === 1 ? 0 : Math.min(W, H) * 0.22;
+    return {
+      id: p.id, partner: p,
+      r: 36 + Math.min(totalContacts * 4, 24),
+      totalContacts,
+      x: W/2 + spread * Math.cos(angle),
+      y: H/2 + spread * Math.sin(angle),
+      fx: EHR_DATA.partners.length === 1 ? W/2 : null,
+      fy: EHR_DATA.partners.length === 1 ? H/2 : null,
+    };
+  });
+
+  // Links between partners who share contacts at the same EHR
+  const links = [];
+  for (let i = 0; i < EHR_DATA.partners.length; i++) {
+    for (let j = i+1; j < EHR_DATA.partners.length; j++) {
+      const pa = EHR_DATA.partners[i], pb = EHR_DATA.partners[j];
+      let shared = 0;
+      const aEhrIds = new Set((pa.ehrs||[]).map(e => e.ehr_id));
+      (pb.ehrs||[]).forEach(e => { if (aEhrIds.has(e.ehr_id)) shared++; });
+      // Also check contact-level overlaps
+      const aLIs = new Set();
+      (pa.ehrs||[]).forEach(e => (e.contacts||[]).forEach(c => { if(c.linkedin&&!c.linkedin.includes('/sales/')) aLIs.add(c.linkedin); }));
+      let sharedContacts = 0;
+      (pb.ehrs||[]).forEach(e => (e.contacts||[]).forEach(c => { if(c.linkedin&&aLIs.has(c.linkedin)) sharedContacts++; }));
+      if (shared > 0 || sharedContacts > 0) {
+        links.push({ source: pa.id, target: pb.id, sharedEhrs: shared, sharedContacts });
+      }
+    }
+  }
+
+  const defs = svg.append('defs');
+  nodes.forEach(d => {
+    const g = defs.append('radialGradient').attr('id','ehr_pg_'+d.id).attr('cx','35%').attr('cy','30%').attr('r','70%');
+    const c = d.partner.color||'#5b9cf6';
+    const n = parseInt(c.replace('#',''),16);
+    const r2=Math.min(255,(n>>16)+80), gr=Math.min(255,((n>>8)&255)+80), b=Math.min(255,(n&255)+80);
+    g.append('stop').attr('offset','0%').attr('stop-color',`rgb(${r2},${gr},${b})`);
+    g.append('stop').attr('offset','100%').attr('stop-color',c);
+  });
+
+  const agf = defs.append('filter').attr('id','ehr-amb2');
+  agf.append('feGaussianBlur').attr('stdDeviation','50');
+  svg.append('rect').attr('width',W).attr('height',H).attr('fill','#060812');
+  svg.append('ellipse').attr('cx',W/2).attr('cy',H/2).attr('rx',W*.28).attr('ry',H*.28)
+    .attr('fill','#0d2030').attr('opacity','0.4').attr('filter','url(#ehr-amb2)');
+
+  const cont = svg.append('g');
+  const linkG = cont.append('g');
+  const nodeG = cont.append('g');
+
+  const zoom = d3.zoom().scaleExtent([0.2,4]).on('zoom', e => cont.attr('transform', e.transform));
+  svg.call(zoom);
+
+  if (ehrSimulation) ehrSimulation.stop();
+  ehrSimulation = d3.forceSimulation(nodes)
+    .force('link', d3.forceLink(links).id(d=>d.id).distance(220).strength(0.08))
+    .force('charge', d3.forceManyBody().strength(-800))
+    .force('center', d3.forceCenter(W/2, H/2).strength(0.04))
+    .force('collision', d3.forceCollide().radius(d=>d.r+30).strength(1))
+    .alphaDecay(0.02);
+
+  // Shared-EHR connection lines
+  const linkEls = linkG.selectAll('.ehr-link').data(links).join('g').attr('class','ehr-link')
+    .style('cursor', 'default');
+
+  linkEls.append('line')
+    .attr('stroke','#ff8c5a').attr('stroke-opacity',0.3)
+    .attr('stroke-width', d => 1 + (d.sharedContacts||0))
+    .attr('stroke-dasharray', '5 4');
+
+  linkEls.filter(d => d.sharedContacts > 0).append('circle')
+    .attr('r',10).attr('fill','rgba(255,140,90,0.12)').attr('stroke','rgba(255,140,90,0.45)').attr('stroke-width',1);
+  linkEls.filter(d => d.sharedContacts > 0).append('text')
+    .attr('text-anchor','middle').attr('dominant-baseline','central')
+    .attr('fill','#ff8c5a').attr('font-family',"'JetBrains Mono',monospace")
+    .attr('font-size','8px').attr('font-weight','600').attr('pointer-events','none')
+    .text(d => d.sharedContacts);
+
+  // Partner nodes
+  const nodeEls = nodeG.selectAll('.ehr-node').data(nodes).join('g')
+    .attr('class','ehr-node').style('cursor','pointer')
+    .call(d3.drag()
+      .on('start',(e,d)=>{ if(!e.active) ehrSimulation.alphaTarget(0.2).restart(); d.fx=d.x; d.fy=d.y; })
+      .on('drag',(e,d)=>{ d.fx=e.x; d.fy=e.y; })
+      .on('end',(e,d)=>{ if(!e.active) ehrSimulation.alphaTarget(0); d.fx=null; d.fy=null; })
+    )
+    .on('click', (e,d) => openEhrPanel(d))
+    .on('mouseover', (e,d) => showEhrTooltip(e,d))
+    .on('mouseout', hideTooltip);
+
+  // Pulse rings for active nodes
+  nodeEls.append('circle')
+    .attr('r', d => d.r+10).attr('fill', d => (d.partner.color||'#5b9cf6')+'10')
+    .attr('stroke', d => (d.partner.color||'#5b9cf6')+'25').attr('stroke-width',1.5);
+
+  // EHR company tags as small floating labels around node
+  nodeEls.each(function(d) {
+    const g = d3.select(this);
+    const ehrs = d.partner.ehrs || [];
+    ehrs.forEach((link, i) => {
+      const ehr = EHR_DATA.ehrs.find(e => e.id === link.ehr_id);
+      if (!ehr) return;
+      const angle = (2*Math.PI/Math.max(ehrs.length,1))*i - Math.PI/2;
+      const tagR = d.r + 22;
+      const tx = tagR * Math.cos(angle);
+      const ty = tagR * Math.sin(angle);
+      g.append('text')
+        .attr('x', tx).attr('y', ty)
+        .attr('text-anchor','middle').attr('dominant-baseline','central')
+        .attr('fill', ehr.color||'#52e09c').attr('font-family',"'JetBrains Mono',monospace")
+        .attr('font-size','7.5px').attr('font-weight','500').attr('pointer-events','none')
+        .attr('opacity',0.7)
+        .text(ehr.name);
+    });
+  });
+
+  // Main circle
+  nodeEls.append('circle')
+    .attr('r', d=>d.r)
+    .attr('fill', d=>`url(#ehr_pg_${d.id})`)
+    .attr('stroke', d=>d.partner.color||'#5b9cf6')
+    .attr('stroke-width',2.5).attr('stroke-opacity',0.8);
+
+  // Initials
+  nodeEls.append('text')
+    .attr('text-anchor','middle').attr('y','-5')
+    .attr('dominant-baseline','central')
+    .attr('fill','rgba(0,0,0,0.75)')
+    .attr('font-family',"'Outfit',sans-serif").attr('font-weight','900')
+    .attr('font-size', d=>Math.max(12,d.r*0.28)+'px').attr('pointer-events','none')
+    .text(d=>{ const p=d.partner.name.split(' ').filter(Boolean); return p.length>=2?(p[0][0]+p[1][0]).toUpperCase():d.partner.name.slice(0,2).toUpperCase(); });
+
+  // Connection count badge
+  nodeEls.append('text')
+    .attr('text-anchor','middle').attr('y', d => d.r*0.28+'px')
+    .attr('fill','rgba(0,0,0,0.5)').attr('font-family',"'JetBrains Mono',monospace")
+    .attr('font-size', d=>Math.max(8,d.r*0.2)+'px').attr('pointer-events','none')
+    .text(d => d.totalContacts + (d.totalContacts===1?' contact':' contacts'));
+
+  // Name label below
+  nodeEls.append('text')
+    .attr('text-anchor','middle').attr('y', d=>(d.r+16)+'px')
+    .attr('fill','rgba(221,227,245,0.65)')
+    .attr('font-family',"'Outfit',sans-serif").attr('font-weight','600')
+    .attr('font-size','10px').attr('pointer-events','none')
+    .text(d=>d.partner.name.split(' ')[0]);
+
+  // Active ring when panel open
+  nodeEls.append('circle')
+    .attr('class','ehr-active-ring')
+    .attr('r', d=>d.r+6).attr('fill','none')
+    .attr('stroke', d=>d.partner.color||'#5b9cf6')
+    .attr('stroke-width',2).attr('stroke-dasharray','4 3').attr('opacity',0);
+
+  nodeEls.style('opacity',0).each(function(d,i){
+    d3.select(this).transition().delay(100+i*120).duration(450).ease(d3.easeCubicOut).style('opacity',1);
+  });
+
+  ehrSimulation.on('tick', () => {
+    nodeEls.attr('transform', d=>`translate(${d.x},${d.y})`);
+    linkEls.select('line')
+      .attr('x1',d=>d.source.x).attr('y1',d=>d.source.y)
+      .attr('x2',d=>d.target.x).attr('y2',d=>d.target.y);
+    linkEls.select('circle')
+      .attr('cx',d=>(d.source.x+d.target.x)/2).attr('cy',d=>(d.source.y+d.target.y)/2);
+    linkEls.select('text')
+      .attr('x',d=>(d.source.x+d.target.x)/2).attr('y',d=>(d.source.y+d.target.y)/2);
+  });
+}
+
+function showEhrTooltip(e, d) {
+  const tip = document.getElementById('tooltip');
+  const ehrNames = (d.partner.ehrs||[]).map(link => {
+    const ehr = EHR_DATA.ehrs.find(x=>x.id===link.ehr_id);
+    return (ehr?ehr.name:link.ehr_id) + ' ('+( link.contacts||[]).length+')';
+  }).join(', ');
+  document.getElementById('tt-name').textContent = d.partner.name;
+  document.getElementById('tt-ind').textContent = d.partner.industry||'ABA Therapy';
+  document.getElementById('tt-net').textContent = d.totalContacts + ' EHR contacts';
+  document.getElementById('tt-ref').textContent = ehrNames || '—';
+  document.getElementById('tt-cnt').textContent = (d.partner.ehrs||[]).length + ' EHR companies';
+  document.getElementById('tt-shared-row').textContent = '';
+  tip.classList.add('vis');
+  tip.style.left = (e.clientX+14)+'px'; tip.style.top = (e.clientY-12)+'px';
+}
+
+function normalizeEhrContact(c, ehr) {
+  // Convert an EHR contact to the same shape contactCard() expects
+  const t = (c.title||'').toLowerCase();
+  let tier = 'C';
+  if (t.includes('chief')||t.includes('ceo')||t.includes('president')||t.includes('vp ')||t.includes('vice president')) tier = 'A';
+  else if (t.includes('director')||t.includes('manager')||t.includes('senior')) tier = 'B';
+  let score = tier==='A'?34:tier==='B'?26:14;
+  const inits = (c.name||'').split(' ').filter(Boolean).map(w=>w[0]).join('').slice(0,2).toUpperCase();
+  return {
+    name: c.name,
+    title: c.title||'',
+    company: ehr ? ehr.name : '',
+    employees: '',
+    emp_int: 0,
+    linkedin: c.linkedin||'',
+    score,
+    initials: inits,
+    connections: 1,
+    tier,
+    role_tag: '',
+    why: ehr ? `${ehr.name} contact${ehr.category?' · '+ehr.category:''}` : '',
+    _ehr_color: ehr ? ehr.color : '#52e09c',
+  };
+}
+
+let ehrFilter = 'all';
+let activeEhrPartner = null;
+
+function setEhrFilter(btn, f) {
+  document.querySelectorAll('#ehr-panel-controls .pchip').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  ehrFilter = f;
+  renderEhrPanel();
+}
+
+function renderEhrPanel() {
+  if (!activeEhrPartner) return;
+  const p = activeEhrPartner;
+
+  // Build flat contact list, filtered by EHR company if needed
+  let all = [];
+  (p.ehrs||[]).forEach(link => {
+    const ehr = EHR_DATA.ehrs.find(e=>e.id===link.ehr_id);
+    (link.contacts||[]).forEach(c => {
+      all.push({ ...normalizeEhrContact(c, ehr), _ehr_id: link.ehr_id });
+    });
+  });
+
+  const filtered = ehrFilter === 'all' ? all : all.filter(c => c._ehr_id === ehrFilter);
+
+  document.getElementById('ehr-panel-count').innerHTML =
+    `<b>${filtered.length}</b> contact${filtered.length!==1?'s':''}${ehrFilter!=='all'?' (filtered)':''}`;
+
+  // Group by EHR company
+  if (ehrFilter === 'all') {
+    const groups = {};
+    all.forEach(c => {
+      if (!groups[c._ehr_id]) groups[c._ehr_id] = { name: c.company, color: c._ehr_color, contacts: [] };
+      groups[c._ehr_id].contacts.push(c);
+    });
+    let html = '';
+    Object.entries(groups).forEach(([ehr_id, g]) => {
+      html += `<div style="font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:${g.color};margin:14px 0 8px;display:flex;align-items:center;gap:6px;">
+        <div style="width:6px;height:6px;border-radius:50%;background:${g.color};"></div>${g.name}
+        <span style="color:var(--text3);font-weight:400;">${g.contacts.length}</span>
+      </div>`;
+      g.contacts.forEach((c,i) => { html += ehrContactCard(c, i+1); });
+    });
+    document.getElementById('ehr-panel-list').innerHTML = html;
+  } else {
+    document.getElementById('ehr-panel-list').innerHTML =
+      filtered.map((c,i) => ehrContactCard(c,i+1)).join('');
+  }
+}
+
+function ehrContactCard(c, rank) {
+  // Identical visual to contactCard() — same HTML structure, same CSS classes
+  const hasLI = (c.linkedin||'').startsWith('http') && !c.linkedin.includes('/sales/');
+  const scoreW = Math.round((c.score / 56) * 100);
+  const tierCol = c.tier==='A'?'#f5c842':c.tier==='B'?'#5b9cf6':c.tier==='C'?'#3ecfb2':'#646e8c';
+  const t = (c.title||'').toLowerCase();
+  const ehrColor = c._ehr_color || '#52e09c';
+
+  let tags = '';
+  if(t.includes('quality')||t.includes('compliance')) tags+='<span class="ctag ct-qa">QA</span>';
+  if(t.includes('vp')||t.includes('vice president')) tags+='<span class="ctag ct-vp">VP</span>';
+  if(t.includes('chief')||t.includes('ceo')||t.includes('president')) tags+='<span class="ctag ct-ceo">C-Suite</span>';
+  if(t.includes('director')) tags+='<span class="ctag ct-dir">Director</span>';
+  if(t.includes('manager')) tags+='<span class="ctag ct-dir">Manager</span>';
+  if(t.includes('product')) tags+=`<span class="ctag" style="background:${ehrColor}18;color:${ehrColor};border-color:${ehrColor}33;">Product</span>`;
+
+  return `<div class="ccard t${c.tier}" style="--ehr-c:${ehrColor};">
+    <div class="crank">${rank}</div>
+    <div class="cavatar" style="background:linear-gradient(135deg,${ehrColor},${ehrColor}99)">${c.initials}</div>
+    <div class="cbody">
+      <div class="cname">${c.name}</div>
+      <div class="ctitle">${c.title||''}</div>
+      <div class="cco" style="color:${ehrColor};">${c.company||''}</div>
+      <div class="ctags">${tags}</div>
+    </div>
+    <div class="cactions">
+      ${hasLI
+        ? `<a class="cli-btn has" href="${c.linkedin}" target="_blank" style="border-color:${ehrColor}44;color:${ehrColor};">↗ LinkedIn</a>`
+        : '<span class="cli-btn no">No LinkedIn</span>'}
+      <div class="cscore"><div class="cscore-bar"><div class="cscore-fill" style="width:${scoreW}%;background:${tierCol}"></div></div></div>
+    </div>
+  </div>`;
+}
+
+function openEhrPanel(node) {
+  if (!node.partner) return;
+  const panel = document.getElementById('ehr-panel');
+  const p = node.partner;
+  activeEhrPartner = p;
+  ehrFilter = 'all';
+
+  // Reset filter chips
+  document.querySelectorAll('#ehr-panel-controls .pchip').forEach(b=>b.classList.remove('on'));
+  const allChip = document.querySelector('#ehr-panel-controls [data-ef="all"]');
+  if(allChip) allChip.classList.add('on');
+
+  // Update filter chips to match this partner's EHR companies
+  const controls = document.getElementById('ehr-panel-controls');
+  controls.innerHTML = '<button class="pchip on" data-ef="all" onclick="setEhrFilter(this,\'all\')">All</button>';
+  (p.ehrs||[]).forEach(link => {
+    const ehr = EHR_DATA.ehrs.find(e=>e.id===link.ehr_id);
+    if (!ehr) return;
+    controls.innerHTML += `<button class="pchip" data-ef="${link.ehr_id}" onclick="setEhrFilter(this,'${link.ehr_id}')" style="--pc:${ehr.color}">${ehr.name}</button>`;
+  });
+
+  // Avatar
+  const av = document.getElementById('ehr-avatar');
+  av.style.background = `linear-gradient(135deg,${p.color||'#5b9cf6'},${darken(p.color||'#5b9cf6')})`;
+  av.textContent = initials(p.name);
+
+  // Header
+  document.getElementById('ehr-panel-name').textContent = p.name;
+  document.getElementById('ehr-panel-role').textContent = p.industry||'ABA Therapy';
+  document.getElementById('ehr-panel-industry').textContent = 'EHR Connections';
+
+  // Stats
+  const totalContacts = (p.ehrs||[]).reduce((s,e)=>s+(e.contacts||[]).length,0);
+  document.getElementById('ehr-ps-contacts').textContent = totalContacts;
+  document.getElementById('ehr-ps-ehrs').textContent = (p.ehrs||[]).length;
+
+  // Active ring highlight
+  d3.selectAll('.ehr-active-ring').attr('opacity', nd => nd.id===node.id ? 0.8 : 0);
+
+  renderEhrPanel();
+  panel.classList.add('open');
+}
+
+function closeEhrPanel() {
+  document.getElementById('ehr-panel').classList.remove('open');
+  d3.selectAll('.ehr-active-ring').attr('opacity', 0);
+  activeEhrPartner = null;
+}
+
 
 // ═══════════════════════════════════════
 // INIT
