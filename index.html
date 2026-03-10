@@ -1520,9 +1520,9 @@ let currentView = 'partner';
 // EHR DATA - populated as user adds partner EHR info
 let EHR_DATA = {
   ehrs: [
-    { id: 'centralreach', name: 'CentralReach', category: 'ABA EMR', color: '#5b9cf6', partner_count: 2 },
-    { id: 'oracle',       name: 'Oracle Health', category: 'Enterprise EHR', color: '#f5a623', partner_count: 1 },
-    { id: 'officepuzzle', name: 'Office Puzzle',  category: 'ABA EMR', color: '#3ecfb2', partner_count: 1 }
+    { id: 'centralreach', name: 'CentralReach', category: 'ABA EMR', color: '#5b9cf6', partner_count: 3 },
+    { id: 'oracle',       name: 'Oracle Health', category: 'Enterprise EHR', color: '#f5a623', partner_count: 2 },
+    { id: 'officepuzzle', name: 'Office Puzzle',  category: 'ABA EMR', color: '#3ecfb2', partner_count: 2 }
   ],
   partners: [
     {
@@ -1543,6 +1543,39 @@ let EHR_DATA = {
           connections: 1,
           contacts: [
             { name: 'John Montalbano', title: 'Oracle Database Administrator', linkedin: '' }
+          ]
+        }
+      ]
+    },
+    {
+      id: 'ashleigh_evans',
+      name: 'Ashleigh Evans',
+      color: '#ff6b6b',
+      industry: 'ABA Therapy',
+      ehrs: [
+        {
+          ehr_id: 'centralreach',
+          connections: 5,
+          contacts: [
+            { name: 'Rick Kubina',      title: 'Director of Research',           linkedin: 'http://www.linkedin.com/in/rickkubina' },
+            { name: 'Elizabeth Barajas',title: 'Clinical AI Solutions Architect', linkedin: 'http://www.linkedin.com/in/elizabeth-barajas-ma-bcba-lssgb-7' },
+            { name: 'Kelly King',       title: 'Manager, Clinical AI Governance', linkedin: 'http://www.linkedin.com/in/kellykingbcba' },
+            { name: 'Haley Scheer',     title: 'Clinical AI Solutions Specialist',linkedin: '' },
+            { name: 'McCourt',          title: 'Senior Account Executive, CR Essentials', linkedin: '' }
+          ]
+        },
+        {
+          ehr_id: 'oracle',
+          connections: 1,
+          contacts: [
+            { name: 'John Montalbano', title: 'Oracle Database Administrator', linkedin: '' }
+          ]
+        },
+        {
+          ehr_id: 'officepuzzle',
+          connections: 1,
+          contacts: [
+            { name: 'Charlene Kurth', title: 'Chief Operating Officer', linkedin: 'http://www.linkedin.com/in/charlenekurth' }
           ]
         }
       ]
